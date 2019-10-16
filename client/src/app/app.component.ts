@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+
 import { GLOBAL } from '../app/services/global'; //posiblemente no sea necesario colocar esta linea
 import { UserService } from './services/user.services';
 import { User } from './models/user';
@@ -21,6 +23,8 @@ export class AppComponent implements OnInit{
   public url: string;
 
   constructor(
+    private _route: ActivatedRoute,
+    private _router: Router,
     private _userService:UserService
   ){
     this.user = new User('','','','','','ROLE_USER', ''); //pasando los datos vacios del usuario por q debe obtenerlos
@@ -94,6 +98,7 @@ export class AppComponent implements OnInit{
       localStorage.clear();//elimina todo lo que esta en el locaslstorage
       this.identity = null;
       this.token = null;
+      this._router.navigate(['/']);
   }
 
   

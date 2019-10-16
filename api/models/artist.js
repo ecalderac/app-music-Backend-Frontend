@@ -9,4 +9,4 @@ var ArtistSchema = Schema({
         image: String
 }); //creando el esquema
 
-module.exports = mongoose.model('Artist', ArtistSchema);
+module.exports = mongoose.model('Artist', ArtistSchema); 

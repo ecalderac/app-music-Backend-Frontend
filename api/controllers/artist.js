@@ -33,7 +33,7 @@ function getArtists(req, res){ //codigo para realizar paginacion
         var page = 1;
     }
     
-    var itemsPerPage = 3;
+    var itemsPerPage = 3; //paginacion 
 
     Artist.find().sort('name').paginate(page, itemsPerPage, function(err, artists, total){
         if(err){
@@ -66,7 +66,7 @@ function saveArtist(req, res){
             res.status(500).send({message: 'Error al guardar el artista'});
         }else{
             if(!artistStored){
-                res.status(404).send({message: 'El artista no ha sido guardado'})
+                res.status(404).send({message: 'El artista no ha sido guardado'});
             }else{
                 res.status(200).send({artist: artistStored});
             }

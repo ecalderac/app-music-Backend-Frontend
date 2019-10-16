@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-//import { Observable } from 'rxjs';
 import { Observable } from 'rxjs/Observable';
 import { GLOBAL } from './global';
 
@@ -43,8 +42,7 @@ export class UserService{
                                         'Authorization': this.getToken()
                                       });
 
-        return this._http.put(this.url+'update-user/'+user_to_update._id, 
-            params, { headers: headers });
+        return this._http.put(this.url+'update-user/'+user_to_update._id, params, { headers: headers });
         
 
 

@@ -22,7 +22,7 @@ function saveUser(req, res){
     user.name = params.name; //variables que llegan por post
     user.surname = params.surname;
     user.email = params.email;
-    user.role = 'ROLE_ADMIN';
+    user.role = 'ROLE_ADMIN'; //COLOCAR 'ROLE_ADMIN' SI ES QUE SE QUIERE GUARDAR UN USARIO ADMINISTRADOR, CASO CONTRARIO COLOCAR 'ROLE_USER' SI ES QUE SE QUIERE GUARDAR UN USUARIO NORMAL Q NO ES ADMINISTRADOR 
     user.image = 'null';
 
     if(params.password){
@@ -160,11 +160,40 @@ function getImageFile(req, res){
     })
 }
 
+//funcion para obtener todos los usuarios
+function getUsers(req, res){ //codigo para realizar paginacion
+
+    if(req.params.page){
+        var page = req.params.page; //realizando paginacion para decir cuantos artistas deben aparecer por pagina(en este caso 3)
+    }else{
+        var page = 1;
+    }
+    
+    var itemsPerPage = 15;
+
+    User.find().sort('name').paginate(page, itemsPerPage, function(err, users, total){
+        if(err){
+            res.status(500).send({message:'Error en la peticion.'});
+        }else{
+            if(!users){
+                res.status(404).send({message:'No hay usuarios'});
+            }else{
+                return res.status(200).send({
+                    total_items: total,
+                    users: users
+                });
+            }
+        }
+    });
+
+}
+
 module.exports = {
     pruebas,
     saveUser,
     loginUser,
     updateUser,
     uploadImage,
-    getImageFile
+    getImageFile,
+    getUsers
 };
