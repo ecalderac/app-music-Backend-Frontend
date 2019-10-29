@@ -4,6 +4,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { GLOBAL } from '../../services/global';
 import { UserService } from '../../services/user.services';
 import { ArtistService } from '../../services/artist.service';
+import { AlbumService } from '../../services/album.service';
 import { Artist } from '../../models/artist';
 import { Album } from '../../models/album';
 
@@ -11,7 +12,7 @@ import { Album } from '../../models/album';
   selector: 'app-album-add',
   templateUrl: './album-add.component.html',
   styleUrls: ['./album-add.component.css'],
-  providers: [UserService, ArtistService]
+  providers: [UserService, ArtistService, AlbumService]
 })
 export class AlbumAddComponent implements OnInit {
   public titulo: string;
@@ -26,6 +27,7 @@ export class AlbumAddComponent implements OnInit {
     private _route: ActivatedRoute,
     private _router: Router,
     private _userService: UserService,
+    private _albumService: AlbumService,
     private _artistService: ArtistService
   ) {
     this.titulo = 'Crear nuevo album';
@@ -44,7 +46,29 @@ export class AlbumAddComponent implements OnInit {
     this._route.params.forEach((params:Params) => {
         let artist_id = params['artist'];
         this.album.artist = artist_id;
-        console.log(this.album);
+
+        this._albumService.addAlbum(this.token, this.album).subscribe(
+            response => {
+
+              if(!response.album){
+                this.alertMessage = "Error en el servidor";
+              }else{
+                this.alertMessage = "El album se ha creado correctamente";
+                this.album = response.album;
+                this._router.navigate(['/editar-album', response.album._id]);
+              }
+    
+            },
+            error =>{
+              var errorMessage = <any>error;
+              if(errorMessage != null){
+                this.alertMessage = error.error.message;
+                console.log(error);
+              }
+            }
+        );
+
+
     });
     
   }
