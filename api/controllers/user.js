@@ -24,7 +24,7 @@ function saveUser(req, res){
     user.email = params.email;
     user.role = 'ROLE_ADMIN'; //COLOCAR 'ROLE_ADMIN' SI ES QUE SE QUIERE GUARDAR UN USARIO ADMINISTRADOR, CASO CONTRARIO COLOCAR 'ROLE_USER' SI ES QUE SE QUIERE GUARDAR UN USUARIO NORMAL Q NO ES ADMINISTRADOR 
     user.image = 'null';
-
+ 
     if(params.password){
         //Encriptar contraseña y guardar datos
         bcrypt.hash(params.password, null, null, function(err, hash){
@@ -157,7 +157,7 @@ function getImageFile(req, res){
         }else{
             res.status(200).send({message: 'No existe la imagen...'});
         }
-    })
+    });
 }
 
 //funcion para obtener todos los usuarios

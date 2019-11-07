@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
 import { GLOBAL } from './global';
 
@@ -15,7 +14,6 @@ export class UserService{
     }
 
     signup(user_to_login, gethash = null):Observable<any>{
-        //return 'HOLA MUNDO';
         if(gethash != null){
             user_to_login.gethash = gethash;
         }
@@ -23,8 +21,7 @@ export class UserService{
         let params = json;
         let headers = new HttpHeaders().set('Content-Type', 'application/json');
 
-        return this._http.post(this.url+'login', params, { headers: headers });
-                                            
+        return this._http.post(this.url+'login', params, { headers: headers });                                    
     }
 
     register(user_to_register):Observable<any>{
@@ -44,8 +41,6 @@ export class UserService{
 
         return this._http.put(this.url+'update-user/'+user_to_update._id, params, { headers: headers });
         
-
-
     }
 
     getIdentity(){

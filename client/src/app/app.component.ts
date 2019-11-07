@@ -52,7 +52,7 @@ export class AppComponent implements OnInit{
         if(!this.identity._id){
             alert("El usuario no esta correctamente identificado");
         }else{           
-          //crear elemento en el locaslstorage para tener al usuario en sesion
+          //crear elemento en el localstorage para tener al usuario en sesion
             localStorage.setItem('identity', JSON.stringify(identity));
 
           //Conseguir el token para enviarselo a cada peticion http
@@ -114,7 +114,7 @@ export class AppComponent implements OnInit{
           this.alertRegister = 'Error al registrarse';
         }else{
           this.alertRegister = 'El registro se ha realizado correctamente, identificate con '+this.user_register.email;
-          this.user_register = new User('','','','','','ROLE_USER', '');
+          this.user_register = new User('','','','','','ROLE_USER', ''); 
         }
 
       },

@@ -18,4 +18,4 @@ api.post('/upload-image-user/:id', [md_auth.ensureAuth, md_upload], UserControll
 api.get('/get-image-user/:imageFile', UserController.getImageFile);
 api.get('/users/:page?', md_auth.ensureAuth, UserController.getUsers); //obteniendo todos los usuarios
 
-module.exports = api;
+module.exports = api; 
